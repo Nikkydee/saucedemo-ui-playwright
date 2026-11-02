@@ -40,7 +40,7 @@ Playwright + TypeScript tests covering:
 ## Install and run
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Nikkydee/saucedemo-ui-playwright.git
 cd saucedemo-ui-playwright
 npm install
 npx playwright install chromium
@@ -55,8 +55,60 @@ npm run test:ui                   # UI tests only
 npm run test:api                  # API tests only
 npx playwright test --headed      # watch the browser
 npx playwright show-report        # open the HTML report
-npm run test:report               # build a single-file Allure report (requires the Allure CLI)
+npm run test:report               # build a single-file Allure report (see Allure report below)
 ```
+
+## Allure report (local)
+
+Every test run writes raw results to `allure-results/` through the `allure-playwright` reporter, which `npm install` already installs. To turn those results into a readable HTML report you also need the Allure command-line tool, which runs on Java.
+
+1. **Install Java 8 or newer (17 LTS recommended)** and make sure it is on your `PATH`.
+
+   ```bash
+   # macOS (Homebrew)
+   brew install openjdk@17
+   sudo ln -sfn "$(brew --prefix)/opt/openjdk@17/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+   ```
+
+   On Windows or Linux, install a JDK (for example [Eclipse Temurin](https://adoptium.net/)). Then set `JAVA_HOME` to the install folder and add `%JAVA_HOME%\bin` (Windows) or `$JAVA_HOME/bin` (Linux) to `PATH`.
+
+   Verify:
+
+   ```bash
+   java -version
+   ```
+
+2. **Install the Allure CLI globally** (the same version CI uses):
+
+   ```bash
+   npm install -g allure-commandline@2.30.0
+   ```
+
+   Verify:
+
+   ```bash
+   allure --version
+   ```
+
+3. **Run the tests and build the report:**
+
+   ```bash
+   npm run test:test-report        # runs the tests, then generates the report
+   # or, if you already have results in allure-results/:
+   npm run test:report
+   ```
+
+   This creates a single-file report at `reports/index.html`. Open it in any browser.
+
+   ```bash
+   open reports/index.html         # macOS
+   start reports/index.html        # Windows
+   xdg-open reports/index.html     # Linux
+   ```
+
+   If `allure` is not found, the global npm `bin` folder is not on your `PATH`. Run `npm prefix -g` and add its `bin` subfolder to `PATH`. If you see `JAVA_HOME is not set`, repeat step 1.
+
+`allure-results/` and `reports/` are in `.gitignore`, so reports are never committed.
 
 ## CI
 
