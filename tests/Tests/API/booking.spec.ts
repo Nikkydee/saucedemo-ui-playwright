@@ -35,8 +35,6 @@ test.describe('Booking API tests', { tag: '@sanity' }, () => {
         const getResponse = await request.get(`/booking/${bookingid}`);
         expect(getResponse.status()).toBe(200);
 
-        // toEqual is a deep comparison, so every field (including nested dates) must match
-        // and any missing or extra field fails the test
         expect(await getResponse.json()).toEqual(newBooking);
     });
 });
