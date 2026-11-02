@@ -1,11 +1,14 @@
 import { test, expect } from '../../fixtures/pageFixtures';
+import { getEnvVar } from '../../../Utils/helperMethods';
 
 test.describe('Checkout tests', { tag: '@sanity' }, () => {
+    const username = getEnvVar('SAUCE_USERNAME');
+    const password = getEnvVar('SAUCE_PASSWORD');
     const products = ['Sauce Labs Backpack', 'Sauce Labs Bike Light'];
 
     test.beforeEach(async ({ loginPage, inventoryPage }) => {
         await loginPage.goto();
-        await loginPage.login('standard_user', 'secret_sauce');
+        await loginPage.login(username, password);
         await expect(inventoryPage.pageTitle).toHaveText('Products');
     });
 

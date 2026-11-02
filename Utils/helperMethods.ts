@@ -9,3 +9,15 @@ export const parsePriceToCents = (text: string): number => {
     }
     return Number(match[1]) * 100 + Number(match[2]);
 }
+
+/**
+ * Reads a required environment variable and fails fast with a clear message if it is missing,
+ * instead of letting a test run with an empty value.
+ */
+export const getEnvVar = (name: string): string => {
+    const value = process.env[name];
+    if (!value) {
+        throw new Error(`Missing environment variable "${name}". Copy .env.example to .env and fill it in.`);
+    }
+    return value;
+}

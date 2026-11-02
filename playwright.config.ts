@@ -1,5 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
 import os from 'os';
+import dotenv from 'dotenv';
+
+/**
+ * Load environment variables (e.g. test credentials) from a local .env file.
+ * See .env.example for the required keys.
+ */
+dotenv.config({ quiet: true });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
