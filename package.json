@@ -1,0 +1,25 @@
+{
+  "name": "saucedemo-ui-playwright",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript assessment: SauceDemo UI checkout and Restful-booker API tests",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --project=\"UI Tests\"",
+    "test:api": "npx playwright test --project=\"API Tests\"",
+    "test:sanity": "npx playwright test --grep \"@sanity\"",
+    "test:report": "allure generate --single-file ./allure-results -o ./reports --clean --report-name \"SauceDemo_Automation\"",
+    "test:test-report": "npm test && npm run test:report"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [],
+  "author": "Adenike Olapetan",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6",
+    "allure-playwright": "^3.14.0",
+    "typescript": "^7.0.2"
+  }
+}
